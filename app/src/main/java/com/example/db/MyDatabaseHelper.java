@@ -2,8 +2,11 @@ package com.example.db;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
@@ -33,16 +36,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    // Update method
-//    public boolean updateData(int id, String name, int age) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        ContentValues contentValues = new ContentValues();
-//        contentValues.put(COLUMN_NAME, name);
-//        contentValues.put(COLUMN_Phone_no , age);
-//
-//        int result = db.update(TABLE_NAME, contentValues, COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
-//        return result != -1;
-
     public void addContact(String name, String phone_no){
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -53,5 +46,25 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         db.insert(TABLE_NAME,null,values);
 
+    }
+    public ArrayList<ContactModel> fetchContact(){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME,null);
+
+        ArrayList<ContactModel> arrContact = new ArrayList<>();
+
+        while (cursor.moveToNext()){
+
+            ContactModel model = new ContactModel();
+            model.id = cursor.getInt(0);
+            model.name = cursor.getString(1);
+            model.phone_no = cursor.getString(2);
+
+            arrContact.add(model);
+        }
+        return arrContact;
     }
 }
