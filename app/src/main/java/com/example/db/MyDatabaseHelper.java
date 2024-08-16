@@ -51,7 +51,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME,null);
 
         ArrayList<ContactModel> arrContact = new ArrayList<>();
@@ -66,5 +65,15 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             arrContact.add(model);
         }
         return arrContact;
+    }
+
+    public void updateContact(ContactModel contactModel){
+
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_Phone_no, contactModel.phone_no);
+
+        database.update(TABLE_NAME, cv,COLUMN_ID + " = "+contactModel.id, null);
     }
 }
