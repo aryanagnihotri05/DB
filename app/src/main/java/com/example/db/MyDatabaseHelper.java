@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.net.IDN;
 import java.util.ArrayList;
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
@@ -75,5 +76,12 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_Phone_no, contactModel.phone_no);
 
         database.update(TABLE_NAME, cv,COLUMN_ID + " = "+contactModel.id, null);
+    }
+
+    public void DeleteContact(int id){
+
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        database.delete(TABLE_NAME, COLUMN_ID+" = ? ", new String[]{String.valueOf(id)});
     }
 }

@@ -20,12 +20,14 @@ public class MainActivity extends AppCompatActivity {
 //        databaseHelper.addContact("Aman","9794631656");
 //        databaseHelper.addContact("Ashish","9745863541");
 //        databaseHelper.addContact("Chanu","9856324785");
+//
+//        ContactModel model = new ContactModel();
+//        model.id = 1;
+//        model.phone_no = "1234567890";
+//
+//        databaseHelper.updateContact(model);
 
-        ContactModel model = new ContactModel();
-        model.id = 1;
-        model.phone_no = "1234567890";
-
-        databaseHelper.updateContact(model);
+        databaseHelper.DeleteContact(2);
 
         ArrayList<ContactModel> arrContact = databaseHelper.fetchContact();
 
